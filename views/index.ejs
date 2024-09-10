@@ -1,0 +1,36 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medication Adherence</title>
+</head>
+<body>
+  <h1>Add Patient</h1>
+  <form action="/add-patient" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" name="name" required>
+    
+    <label for="phone">Phone:</label>
+    <input type="text" name="phone" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" name="email" required>
+    
+    <label for="prescribedMedicine">Medicine:</label>
+    <input type="text" name="prescribedMedicine" required>
+    
+    <label for="dosage">Dosage:</label>
+    <input type="text" name="dosage" required>
+    
+    <label for="frequency">Frequency (in hours):</label>
+    <input type="number" name="frequency" required>
+    
+    <label for="duration">Duration (in days):</label>
+    <input type="number" name="duration" required>
+    
+    <button type="submit">Add Patient</button>
+  </form>
+</body>
+</html>
