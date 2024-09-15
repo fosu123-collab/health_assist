@@ -1,36 +1,285 @@
 <!-- views/index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Medication Adherence</title>
+  <meta property="og:title" content="Countdown to November 4, 2024" />
+  <meta property="og:description" content="Join us in counting down to the big event!" />
+  <meta property="og:image" content="./images/countdown.png" />
+  <meta property="og:url" content="https://health-assist.onrender.com/" />
+  <meta property="og:type" content="website" />
+  <title>GPPQE</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #282c34;
+    color: white;
+    text-align: center;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.countdown-container {
+    background-color: #20232a;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 2rem;
+}
+
+#countdown div {
+    background-color: #61dafb;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Media Query for tablets and smaller screens */
+@media screen and (max-width: 768px) {
+    #countdown {
+        flex-direction: column;
+        gap: 10px;
+        font-size: 1.5rem;
+    }
+    
+    #countdown div {
+        padding: 15px;
+    }
+}
+
+/* Media Query for mobile phones */
+@media screen and (max-width: 480px) {
+    #countdown {
+        flex-direction: column;
+        gap: 5px;
+        font-size: 1.2rem;
+    }
+    
+    #countdown div {
+        padding: 10px;
+    }
+    
+    .countdown-container {
+        padding: 15px;
+    }
+}
+
+</style>
+
 </head>
+
 <body>
-  <h1>Add Patient</h1>
+  <!--<h1>Add Patient</h1>
   <form action="/add-patient" method="POST">
     <label for="name">Name:</label>
     <input type="text" name="name" required>
-    
+
     <label for="phone">Phone:</label>
     <input type="text" name="phone" required>
-    
+
     <label for="email">Email:</label>
     <input type="email" name="email" required>
-    
+
     <label for="prescribedMedicine">Medicine:</label>
     <input type="text" name="prescribedMedicine" required>
-    
+
     <label for="dosage">Dosage:</label>
     <input type="text" name="dosage" required>
-    
+
     <label for="frequency">Frequency (in hours):</label>
     <input type="number" name="frequency" required>
-    
+
     <label for="duration">Duration (in days):</label>
     <input type="number" name="duration" required>
-    
+
     <button type="submit">Add Patient</button>
   </form>
+
+  <h1>Artesunate Dosage Calculator</h1>
+  <label for="weight">Patient Weight (kg):</label>
+  <input type="number" id="weight" name="weight" min="0" step="0.1">
+  <select name="route" id="route">
+    <option value="" id="">Choose route</option>
+    <option value="IV" id="IV">IV</option>
+    <option value="IM" id="IM">IM</option>
+  </select>
+  <button onclick="calculateDosage()">Calculate Dosage</button>
+  <p id="result"></p>
+
+  <h1>Artemether Dosage Calculator</h1>
+  <label for="weight">Patient Weight (kg):</label>
+  <input type="number" id="artemetherweight" name="artemetherweight" min="0" step="0.1">
+  <button onclick="calcArtemetherDose()">Calculate Dosage</button>
+  <p id="artemetherResult"></p>
+
+  <h1>Artesunate-Amodiaquine Dosage Calculator</h1>
+  <label for="weight">Patient Weight (kg):</label>
+  <input type="number" id="artesunateweight" name="artesunateweight" min="0" step="0.1">
+  <button onclick="calcArtesunate()">Calculate Dosage</button>
+  <p id="artesunateResult"></p>
+
+  <h1>Dihydroartemisinin-Piperaquine Dosage Calculator</h1>
+  <label for="weight">Patient Weight (kg):</label>
+  <input type="number" id="dhapweight" name="dhapweight" min="0" step="0.1">
+  <button onclick="calcDHAPDose()">Calculate Dosage</button>
+  <p id="dhapResult"></p>
+
+  <h1>Artesunate Pyronaridine Dosage Calculator</h1>
+  <label for="weight">Patient Weight (kg):</label>
+  <input type="number" id="apweight" name="apweight" min="0" step="0.1">
+  <button onclick="calcAPDose()">Calculate Dosage</button>
+  <p id="apResult"></p>-->
+
+  <div class="countdown-container">
+    <h1>Countdown to GPPQE November 4, 2024</h1>
+    <div id="countdown">
+        <div><span id="days"></span> Days</div>
+        <div><span id="hours"></span> Hours</div>
+        <div><span id="minutes"></span> Minutes</div>
+        <div><span id="seconds"></span> Seconds</div>
+    </div>
+  </div>
+
+  <script>
+   /* function calculateDosage() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const route = document.getElementById('route').value;
+      let dosage;
+      let resultText = '';  // Initialize resultText
+
+
+      // Calculation for artesunate Dose
+      // IV route calculation
+      if (route === "IV") {
+        if (weight > 20) {
+          dosage = (weight * 2.4) / 10;
+        } else {
+          dosage = (weight * 3.0) / 10;
+        }
+
+        resultText = `Give ${dosage.toFixed(2)} ml as slow bolus 3-4 ml per minute at times 0, 12, and 24 hours.`;
+        resultText += ' If the patient is stable, switch to 3 days ACT oral administration. If the patient is not stable, continue IV administration for 7 days until the patient can tolerate oral medication.';
+      }
+
+      // IM route calculation
+      else if (route === "IM") {
+        if (weight > 20) {
+          dosage = (weight * 2.4) / 20;
+        } else {
+          dosage = (weight * 3.0) / 20;
+        }
+
+        resultText = `Give ${dosage.toFixed(2)} ml, inject slowly.`;
+        resultText += ' Spread doses of more than 2 ml over different sites for babies or 5 ml for adults.';
+      }
+
+      // Display the result
+      document.getElementById('result').innerText = resultText;
+    }
+
+    //Calculation for artemether Dose
+    function calcArtemetherDose() {
+
+      const weight = parseFloat(document.getElementById('artemetherweight').value);
+      let result = '';
+      if (weight > 4 && weight < 15) {
+        artemetherResultText = " 20/120 (1 tablet) to be given at hour 0, 8, 24, 36, 48 and 60 over a 3-day period. It should be taken with food especially a fat containing meal"
+      }
+
+      else if (weight > 14 && weight < 25) {
+        artemetherResultText = " 40/240 (2 tablets) to be given at hour 0, 8, 24, 36, 48 and 60 over a 3-day period. It should be taken with food especially a fat containing meal"
+      }
+
+      else if (weight > 24 && weight < 35) {
+        artemetherResultText = " 60/360 (3 tablets) to be given at hour 0, 8, 24, 36, 48 and 60 over a 3-day period. It should be taken with food especially a fat containing meal"
+      }
+
+      else if (weight > 35) {
+        artemetherResultText = " 80/480 (4 tablets) to be given at hour 0, 8, 24, 36, 48 and 60 over a 3-day period. It should be taken with food especially a fat containing meal"
+      }
+
+      else {
+        artemetherResultText = " 20/120 can be given"
+      }
+
+      // Display the result
+      document.getElementById('artemetherResult').innerText = artemetherResultText;
+    }
+
+    //Calculation for Artesunate-Amodiaquine Dose
+    function calcArtesunate() {
+      const weight = parseFloat(document.getElementById('artesunateweight').value);
+      let artesunate = 4 * weight;
+      let amodiaquine = 10 * weight;
+      let result = '';
+      result = `Give ${artesunate} mg of Artesunate and ${amodiaquine} mg of Amodiaquine once a day or in two divided doses for 3 days, Maximum dose(600mg). It can be taken with or without food.`
+      // Display the result
+      document.getElementById('artesunateResult').innerText = result;
+
+    }
+
+    //Calculation for Dihydroartemisinin-Piperaquine Dose
+    function calcDHAPDose() {
+      const weight = parseFloat(document.getElementById('dhapweight').value);
+      let dihydroartemisinin = 4 * weight;
+      let piperaquine = 18 * weight;
+      let result = '';
+      result = `Give ${dihydroartemisinin} mg of dihydroartemisinin and ${piperaquine} mg of Piperaquine once a day for 3 days. Avoid fatty meals or take within 1 to 2 hours before meals.`
+      // Display the result
+      document.getElementById('dhapResult').innerText = result;
+    }
+    //Calculation for Artesunate-Pyronaridine Dose
+    function calcAPDose() {
+      const weight = parseFloat(document.getElementById('apweight').value);
+      let result = '';
+      if (weight > 4 && weight < 20) {
+      result = "Give Granule sachets once a day for 3 days. It can be taken with or without food."
+      }
+      else if (weight > 19) {
+        result = "Give fix dose at once for 3 days. It can be taken with or without food."
+      }
+      else {
+        result = "Not recommended";
+      }
+      // Display the result
+      document.getElementById('apResult').innerText = result;
+    }*/
+
+    const countdown = () => {
+    const countdownDate = new Date('November 4, 2024 00:00:00').getTime();
+    const now = new Date().getTime();
+    const timeDifference = countdownDate - now;
+
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    document.getElementById('days').innerText = days;
+    document.getElementById('hours').innerText = hours;
+    document.getElementById('minutes').innerText = minutes;
+    document.getElementById('seconds').innerText = seconds;
+
+    if (timeDifference < 0) {
+        clearInterval(interval);
+        document.getElementById('countdown').innerHTML = "Countdown Ended";
+    }
+};
+
+const interval = setInterval(countdown, 1000);
+
+
+  </script>
 </body>
+
 </html>

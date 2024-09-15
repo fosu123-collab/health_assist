@@ -17,13 +17,13 @@ app.use(express.static('public'));
 // Routes
 app.use('/', indexRoutes);
 
-const cron = require('node-cron');
+/*const cron = require('node-cron');
 const patientController = require('./controllers/patientController');
 
 // Schedule cron job to run every hour
-cron.schedule('0 * * * *', () => {
+cron.schedule('* * * * *', () => {
   patientController.sendReminders();
-});
+});*/
 
 
 // Server

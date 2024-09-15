@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artesunate Dosage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Artesunate Dosage Calculator</h1>
+    <label for="weight">Patient Weight (kg):</label>
+    <input type="number" id="weight" name="weight" min="0" step="0.1">
+    <button onclick="calculateDosage()">Calculate Dosage</button>
+    <p id="result"></p>
+
+    <script>
+        function calculateDosage() {
+    const weight = parseFloat(document.getElementById('weight').value);
+    let dosage;
+    
+    if (weight > 20) {
+        dosage = (weight * 2.4) / 10;
+    } else {
+        dosage = (weight * 3.0) / 10;
+    }
+    
+    let resultText = `Give ${dosage.toFixed(2)} ml at times 0, 12, and 24 hours.`;
+    if (weight > 20) {
+        resultText += ' If the patient is stable, switch to oral administration.';
+    } else {
+        resultText += ' If the patient is not stable, continue IV administration for 3-7 days until the patient can tolerate oral medication.';
+    }
+    
+    document.getElementById('result').innerText = resultText;
+}
+
+    </script>
+</body>
+</html>
